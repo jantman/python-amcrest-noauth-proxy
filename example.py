@@ -39,6 +39,8 @@ def index():
         if len(tmp) == 2:
             camlist.append(tmp)
             tmp = []
+    if len(tmp) > 0:
+        camlist.append(tmp)
     return render_template('index.html', camlist=camlist)
 
 @app.route('/<string:camname>/<path:path>')
@@ -53,7 +55,7 @@ def cam(camname, path):
     elif path == 'ptzstatus':
         path = 'cgi-bin/ptz.cgi?action=getStatus&channel=1'
     elif path == 'ptzPosition':
-        path = '/cgi-bin/ptz.cgi?action=start&channel=1&code=Position&arg1=%s&arg2=%s&arg3=0' % (request.args.get('x'), request.args.get('y'))
+        path = 'cgi-bin/ptz.cgi?action=start&channel=1&code=Position&arg1=%s&arg2=%s&arg3=0' % (request.args.get('x'), request.args.get('y'))
     else:
         if not cam['passthru']:
             return 'Cam does not have passthru configured; unknown path %s' % path, 404

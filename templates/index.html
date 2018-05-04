@@ -69,7 +69,9 @@
         {{ camdiv(row[0]) }}
       </div> <!-- /.left -->
       <div class="right">
+        {% if row|length > 1 %}
         {{ camdiv(row[1]) }}
+        {% endif %}
       </div> <!-- /.right -->
     </div> <!-- /.controw -->
     {% endfor %}
