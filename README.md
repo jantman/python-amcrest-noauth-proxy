@@ -15,7 +15,11 @@ Note that this proxy only supports one backend camera at a time; even with the g
 As an example, to expose a camera running at 192.168.0.61 with credentials admin:password on port 8000 of your local machine:
 
 ```
-docker run -it --rm --name cam-proxy -e CAM_ADDR=192.168.0.61 -e CAM_USER=admin -e CAM_PASS=password -p 8000:8080 jantman/python-amcrest-noauth-proxy
+docker run -it --rm --name cam-proxy \
+    -e CAM_ADDR=192.168.0.61 \
+    -e CAM_USER=admin \
+    -e CAM_PASS=password \
+    -p 8000:8080 jantman/python-amcrest-noauth-proxy
 ```
 
 Then you should be able to point your browser to, say:
