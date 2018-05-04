@@ -9,9 +9,10 @@ from requests.auth import HTTPDigestAuth
 
 app = Flask(__name__)
 
+@app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def cam(path):
-    url = 'http://%s/%s' % (os.environ['CAM_ADDR'], path)
+    url = 'http://%s%s' % (os.environ['CAM_ADDR'], request.full_path)
     req = requests.get(
         url,
         stream = True,

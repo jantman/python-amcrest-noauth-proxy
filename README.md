@@ -4,7 +4,7 @@ Python/Flask reverse proxy server that removes HTTP Digest auth from Amcrest IP 
 
 Developed for Python 3.6, Flask 1.0.2, gunicorn 19.8.1.
 
-This works as a reverse proxy, handling HTTP Digest authentication on the user's behalf (authenticating to the IP camera) and providing (from the user/client perspective) completely unauthenticated access to the camera. I've tested it with the CGI API, snapshots, _and mjpeg stream_ and it works for all of them.
+This works as a reverse proxy, handling HTTP Digest authentication on the user's behalf (authenticating to the IP camera) and providing (from the user/client perspective) completely unauthenticated access to the camera. I've tested it with the CGI API including snapshots **and mjpeg stream** and it works for all of them. It does _not_ work for the web UI itself or RSTP streams.
 
 mjpeg performance is tolerable but not amazing, with a latency of up to 30 seconds in my tests. However, you should be able to both stream mjpeg and access other CGI commands concurrently.
 
