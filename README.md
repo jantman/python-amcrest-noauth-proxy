@@ -15,7 +15,7 @@ Note that this proxy only supports one backend camera at a time; even with the g
 As an example, to expose a camera running at 192.168.0.61 with credentials admin:password on port 8000 of your local machine:
 
 ```
-docker run -it --rm --name cam-proxy -e CAM_ADDR=192.168.0.61 -e CAM_USER=admin -e CAM_PASS=password -p 8000:80 jantman/python-amcrest-noauth-proxy
+docker run -it --rm --name cam-proxy -e CAM_ADDR=192.168.0.61 -e CAM_USER=admin -e CAM_PASS=password -p 8000:8080 jantman/python-amcrest-noauth-proxy
 ```
 
 Then you should be able to point your browser to, say:
@@ -26,7 +26,7 @@ Then you should be able to point your browser to, say:
 
 ## Running Locally
 
-Install the requirements in a virtualenv, then: ``gunicorn -w 4 -b 127.0.0.1:5050 -k gthread --access-logfile - --error-logfile - example:app``
+Install the requirements in a virtualenv, then: ``gunicorn -w 4 -b 127.0.0.1:8000 -k gthread --access-logfile - --error-logfile - example:app``
 
 Note that gunicorn's default "sync" worker type will completely block
 

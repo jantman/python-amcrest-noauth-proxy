@@ -16,6 +16,7 @@ ENV LANG=en_US.UTF-8
 ENV PYTHONUNBUFFERED=true
 LABEL org.label-schema.build-date=$build_date org.label-schema.vcs-url="https://github.com/jantman/python-amcrest-noauth-proxy" org.label-schema.vcs-ref=$version org.label-schema.schema-version="1.0"
 
-EXPOSE 80
+USER nobody
+EXPOSE 8080
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["/app/entrypoint.sh"]
