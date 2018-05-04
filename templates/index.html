@@ -1,0 +1,78 @@
+{% macro camdiv(cam) %}
+<h2>{{ cam['name'] }}</h2>
+<img src="/{{ cam['name'] }}/mjpeg" />
+<p><a href="/{{ cam['name'] }}/snapshot" target="_blank">Full Size (still)</a> - <a href="rstp://{{ cam['name']}}{{ cam['rstp_path'] }}">rstp stream</a></p>
+{% if cam['ptz'] %}
+<table>
+  <tr><td>&nbsp;</td><td><a href="#" onclick="doMove('{{ cam['name']}}', 0, -1500)">&uarr;</a><br /><a href="#" onclick="doMove('{{ cam['name']}}', 0, -3000)">&uuarr;</a></td><td>&nbsp;</td></tr>
+  <tr><td><a href="#" onclick="doMove('{{ cam['name']}}', -1500, 0)">&larr;</a><a href="#" onclick="doMove('{{ cam['name']}}', -3000, 0)">&llarr;</a></td><td>&nbsp;</td><td><a href="#" onclick="doMove('{{ cam['name']}}', 3000, 0)">&rrarr;</a><a href="#" onclick="doMove('{{ cam['name']}}', 1500, 0)">&rarr;</a></td></tr>
+  <tr><td>&nbsp;</td><td><a href="#" onclick="doMove('{{ cam['name']}}', 0, 3000)">&ddarr;</a><br /><a href="#" onclick="doMove('{{ cam['name']}}', 0, 1500)">&darr;</a></td><td>&nbsp;</td></tr>
+</table>
+<a href="#" onclick="getpos()">Get Position</a>
+{% endif %}
+{% endmacro %}
+<html>
+<head>
+  <title>Index</title>
+  <style>
+  #container { width: 100%; }
+  .controw { width: 100%; }
+  .left { width: 49%; float: left; }
+  .right { width: 49%; float: left; }
+  img { display: block; margin-left: auto; margin-right: auto; }
+  p { width: 100%; text-align: center; }
+  table { margin-left: auto; margin-right: auto; }
+  td { text-align: center; }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+  function doMove(camname, x, y) {
+    $.ajax({
+      url: "/" + camname + "/ptzPosition?x=" + x + "&y=" + y
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) {
+      alert("Ajax call to move failed: " + textStatus + " : " + errorThrown)
+    });
+  }
+  function getpos() {
+    $.ajax({
+      url: "/" + camname + "/ptzstatus"
+    })
+    .done(function(data) {
+      var x = null;
+      var y = null;
+      var tmp;
+      var lines = data.split("\n");
+      for(var line in lines) {
+        tmp = lines[line].split("=");
+        console.log("=" + tmp[0] + "=");
+        if(tmp[0] == "status.Postion[0]") { x = parseFloat(tmp[1]); }
+        if(tmp[0] == "status.Postion[1]") { y = parseFloat(tmp[1]); }
+      }
+      if(x === null || y === null) {
+        alert("Error: unable to parse position!");
+        return null;
+      }
+      alert([x, y]);
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) {
+      alert("Ajax call to get position failed: " + textStatus + " : " + errorThrown)
+    });
+  }
+  </script>
+</head>
+<body>
+  <div id="container">
+    {% for row in camlist %}
+    <div class="controw">
+      <div class="left">
+        {{ camdiv(row[0]) }}
+      </div> <!-- /.left -->
+      <div class="right">
+        {{ camdiv(row[1]) }}
+      </div> <!-- /.right -->
+    </div> <!-- /.controw -->
+    {% endfor %}
+  </div> <!-- /container -->
+</body>
+</html>
