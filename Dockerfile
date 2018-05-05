@@ -47,6 +47,7 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 COPY amcrest_noauth_proxy.py amcrest_noauth_proxy.py
 COPY entrypoint.sh entrypoint.sh
+COPY gunicorn_config.py gunicorn_config.py
 COPY LICENSE LICENSE
 COPY README.md README.md
 RUN pip install -r requirements.txt && apk add --no-cache tini
