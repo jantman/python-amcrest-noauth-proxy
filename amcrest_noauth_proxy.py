@@ -58,7 +58,7 @@ def cam(path):
         auth=HTTPDigestAuth(os.environ['CAM_USER'], os.environ['CAM_PASS'])
     )
     return Response(
-        stream_with_context(req.iter_content()),
+        stream_with_context(req.iter_content(chunk_size=8192)),
         content_type = req.headers['content-type'],
         headers=dict(req.headers).update({
             # Per the terms of the AGPL, these following headers MAY NOT
