@@ -1,6 +1,6 @@
-# python-amcrest-noauth-proxy
+# ABANDONED - python-amcrest-noauth-proxy
 
-[![Project Status: Concept – Minimal or no implementation has been done yet, or the repository is only intended to be a limited example, demo, or proof-of-concept.](http://www.repostatus.org/badges/latest/concept.svg)](http://www.repostatus.org/#concept)
+[![Project Status: Abandoned – Initial development has started, but there has not yet been a stable, usable release; the project has been abandoned and the author(s) do not intend on continuing development.](https://www.repostatus.org/badges/latest/abandoned.svg)](https://www.repostatus.org/#abandoned)
 
 Python/Flask reverse proxy server that removes HTTP Digest auth from Amcrest IP cameras. Docker image provided.
 
@@ -14,7 +14,7 @@ Note that this proxy only supports one backend camera at a time; even with the g
 
 ## Status
 
-This was just a proof-of-concept of mine. I'm not sure if I'm even going to use it myself (at the moment I'm not). Pull requests are welcome, but feature requests aren't likely to result in much.
+This was just a proof-of-concept of mine. I'm not using it myself, and it's now abandoned.
 
 ## Running via Docker
 
